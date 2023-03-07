@@ -5,7 +5,11 @@ import { AppModule } from './app.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
-  app.enableCors()
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, PUT, POST, DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+})
   
   const config = new DocumentBuilder().setTitle('IPB Dashboard Api').setVersion('1.0').addTag('ipb').build()
   const document = SwaggerModule.createDocument(app, config)
